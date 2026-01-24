@@ -63,21 +63,20 @@ app.post("/api/genera-ricetta-automatica", async (req, res) => {
       Pasto: ${pastoNome}.
       Ingredienti forniti: ${ingredienti}.
 
-      ${
-        focusCategoria
-          ? `OBIETTIVO: Genera la ricetta ESCLUSIVAMENTE per il ${focusCategoria.toUpperCase()}. Ignora il resto.`
-          : "OBIETTIVO: Crea un menù completo includendo tutte le portate sopra indicate."
-      }
+      FORMATO RISPOSTA OBBLIGATORIO:
+  Inizia la risposta SEMPRE con la riga: "TITOLO: [Nome creativo della ricetta]"
+  Poi prosegui con il resto della ricetta in Markdown.
+        ${
+          focusCategoria
+            ? `OBIETTIVO: Genera la ricetta ESCLUSIVAMENTE per il ${focusCategoria.toUpperCase()}. Ignora il resto.`
+            : "OBIETTIVO: Crea un menù completo includendo tutte le portate sopra indicate."
+        }
 
       NOTA UTENTE: ${notaUtente || "Crea una ricetta bilanciata."}
 
       "Agisci come il mio nutrizionista personale. Da questo momento, ogni volta che ti chiedo una ricetta, devi seguire rigorosamente queste linee guida estratte dal mio piano alimentare:
       Importante non usare blocchi di testo in <code> quando dai una risposta.
-FORMATO RISPOSTA OBBLIGATORIO:
-  Inizia la risposta SEMPRE con la riga: "TITOLO: [Nome creativo della ricetta]"
-  Poi prosegui con il resto della ricetta in Markdown.
-  
-  ${focusCategoria ? `OBIETTIVO: Ricetta per ${focusCategoria.toUpperCase()}.` : ""}
+
       Importante fare attenzione ad avere una o più proteine ma che rispettino il peso della proteina nella dieta.
 
 1. Regole Generali e Quantità
