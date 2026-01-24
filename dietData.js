@@ -38,10 +38,6 @@ const dietPlan = {
               },
             ],
           },
-          {
-            description: "Barretta",
-            components: [{ name: "Barretta", qty: 1, unit: "pz" }],
-          },
         ],
       },
       {
@@ -54,10 +50,30 @@ const dietPlan = {
           {
             description: "Legumi e Pollo",
             components: [
-              { name: "Legumi", qty: 200, unit: "g" },
-              { name: "Pollo", qty: 150, unit: "g" },
-              { name: "Pane integrale", qty: 30, unit: "g" },
-              { name: "Verdure", qty: null, unit: "a volontà" },
+              {
+                name: "Legumi (Lenticchie/Ceci)",
+                qty: 200,
+                unit: "g",
+                category: "Primo",
+              },
+              {
+                name: "Petto di Pollo",
+                qty: 150,
+                unit: "g",
+                category: "Secondo",
+              },
+              {
+                name: "Pane integrale",
+                qty: 30,
+                unit: "g",
+                category: "Primo",
+              },
+              {
+                name: "Verdure",
+                qty: null,
+                unit: "a volontà",
+                category: "Contorno",
+              },
             ],
           },
         ],
@@ -69,13 +85,6 @@ const dietPlan = {
         end: 19,
         img: "./yogurt.jpg",
         options: [
-          {
-            description: "Frutta e Mandorle",
-            components: [
-              { name: "Frutta", qty: 150, unit: "g" },
-              { name: "Mandorle", qty: 7, unit: "pz" },
-            ],
-          },
           {
             description: "Yogurt",
             components: [{ name: "Yogurt", qty: 125, unit: "g" }],
@@ -129,9 +138,8 @@ const dietPlan = {
         img: "./colazione.jpeg",
         options: [
           {
-            description: "Caffè, Latte e Biscotti",
+            description: "Caffè e Biscotti",
             components: [
-              { name: "Caffè", qty: null, unit: "qb" },
               { name: "Latte", qty: 150, unit: "ml" },
               { name: "Biscotti", qty: 4, unit: "pz" },
             ],
@@ -146,7 +154,7 @@ const dietPlan = {
         img: "./mela.jpg",
         options: [
           {
-            description: "Frutta o Barretta",
+            description: "Frutta",
             components: [{ name: "Frutta", qty: 150, unit: "g" }],
           },
         ],
@@ -159,12 +167,26 @@ const dietPlan = {
         img: "./pastalasugo.webp",
         options: [
           {
-            description: "Pasta al Merluzzo",
+            description: "Pasta e Merluzzo",
             components: [
-              { name: "Pasta", qty: 80, unit: "g" },
-              { name: "Sugo pomodoro", qty: null, unit: "qb" },
-              { name: "Parmigiano", qty: null, unit: "un pizzico" },
-              { name: "Merluzzo", qty: 150, unit: "g" },
+              {
+                name: "Pasta integrale al pomodoro",
+                qty: 80,
+                unit: "g",
+                category: "Primo",
+              },
+              {
+                name: "Cuore di Merluzzo",
+                qty: 150,
+                unit: "g",
+                category: "Secondo",
+              },
+              {
+                name: "Verdure",
+                qty: null,
+                unit: "a volontà",
+                category: "Contorno",
+              },
             ],
           },
         ],
@@ -177,7 +199,7 @@ const dietPlan = {
         img: "./yogurt.jpg",
         options: [
           {
-            description: "Yogurt o Frutta",
+            description: "Yogurt",
             components: [{ name: "Yogurt", qty: 125, unit: "g" }],
           },
         ],
@@ -207,11 +229,8 @@ const dietPlan = {
         img: "./cioccolato-fondente.jpg",
         options: [
           {
-            description: "Cioccolato e Tisana",
-            components: [
-              { name: "Cioccolato Fondente", qty: 10, unit: "g" },
-              { name: "Tisana", qty: 1, unit: "tazza" },
-            ],
+            description: "Cioccolato",
+            components: [{ name: "Cioccolato Fondente", qty: 10, unit: "g" }],
           },
         ],
       },
@@ -258,11 +277,22 @@ const dietPlan = {
         img: "./poke_salmone_avo1.jpg",
         options: [
           {
-            description: "Poke Salmone",
+            description: "Riso e Salmone",
             components: [
-              { name: "Riso Basmati", qty: 70, unit: "g" },
-              { name: "Salmone", qty: 120, unit: "g" },
-              { name: "Avocado", qty: null, unit: "qb" },
+              { name: "Riso Basmati", qty: 70, unit: "g", category: "Primo" },
+              {
+                name: "Salmone fresco/affumicato",
+                qty: 120,
+                unit: "g",
+                category: "Secondo",
+              },
+              { name: "Avocado", qty: 30, unit: "g", category: "Condimento" },
+              {
+                name: "Verdure miste",
+                qty: null,
+                unit: "a volontà",
+                category: "Contorno",
+              },
             ],
           },
         ],
@@ -288,9 +318,9 @@ const dietPlan = {
         img: "./pesceascelta.jpg",
         options: [
           {
-            description: "Pesce a scelta",
+            description: "Pesce",
             components: [
-              { name: "Pesce", qty: 180, unit: "g" },
+              { name: "Pesce magro", qty: 180, unit: "g" },
               { name: "Pane integrale", qty: 80, unit: "g" },
               { name: "Verdure", qty: null, unit: "a volontà" },
             ],
@@ -305,11 +335,8 @@ const dietPlan = {
         img: "./cioccolato-fondente.jpg",
         options: [
           {
-            description: "Cioccolato e Tisana",
-            components: [
-              { name: "Cioccolato Fondente", qty: 10, unit: "g" },
-              { name: "Tisana", qty: 1, unit: "tazza" },
-            ],
+            description: "Cioccolato",
+            components: [{ name: "Cioccolato Fondente", qty: 10, unit: "g" }],
           },
         ],
       },
@@ -329,7 +356,6 @@ const dietPlan = {
           {
             description: "Caffè, Latte e Biscotti",
             components: [
-              { name: "Caffè", qty: null, unit: "qb" },
               { name: "Latte", qty: 150, unit: "ml" },
               { name: "Biscotti", qty: 4, unit: "pz" },
             ],
@@ -359,9 +385,24 @@ const dietPlan = {
           {
             description: "Pasta e Hamburger",
             components: [
-              { name: "Pasta", qty: 80, unit: "g" },
-              { name: "Zucchine", qty: null, unit: "a volontà" },
-              { name: "Hamburger vitello", qty: 150, unit: "g" },
+              {
+                name: "Pasta integrale alle zucchine",
+                qty: 80,
+                unit: "g",
+                category: "Primo",
+              },
+              {
+                name: "Hamburger di vitello",
+                qty: 150,
+                unit: "g",
+                category: "Secondo",
+              },
+              {
+                name: "Verdure",
+                qty: null,
+                unit: "a volontà",
+                category: "Contorno",
+              },
             ],
           },
         ],
@@ -389,7 +430,7 @@ const dietPlan = {
           {
             description: "Pollo",
             components: [
-              { name: "Pollo", qty: 180, unit: "g" },
+              { name: "Pollo alla griglia", qty: 180, unit: "g" },
               { name: "Pane integrale", qty: 80, unit: "g" },
               { name: "Verdure", qty: null, unit: "a volontà" },
             ],
@@ -452,12 +493,21 @@ const dietPlan = {
         img: "./risotto-funghi-porcini.jpg",
         options: [
           {
-            description: "Risotto Funghi e Mozzarella",
+            description: "Risotto e Mozzarella",
             components: [
-              { name: "Riso Basmati", qty: 80, unit: "g" },
-              { name: "Funghi", qty: null, unit: "qb" },
-              { name: "Speck", qty: 30, unit: "g" },
-              { name: "Mozzarella", qty: 120, unit: "g" },
+              { name: "Riso ai funghi", qty: 80, unit: "g", category: "Primo" },
+              {
+                name: "Mozzarella o Speck (30g)",
+                qty: 120,
+                unit: "g",
+                category: "Secondo",
+              },
+              {
+                name: "Verdure",
+                qty: null,
+                unit: "a volontà",
+                category: "Contorno",
+              },
             ],
           },
         ],
@@ -485,8 +535,9 @@ const dietPlan = {
           {
             description: "Pesce",
             components: [
-              { name: "Pesce", qty: 180, unit: "g" },
+              { name: "Pesce alla piastra", qty: 180, unit: "g" },
               { name: "Pane integrale", qty: 80, unit: "g" },
+              { name: "Verdure", qty: null, unit: "a volontà" },
             ],
           },
         ],
@@ -518,9 +569,8 @@ const dietPlan = {
         img: "./colazione.jpeg",
         options: [
           {
-            description: "Caffè, Latte e Biscotti",
+            description: "Caffè e Biscotti",
             components: [
-              { name: "Caffè", qty: null, unit: "qb" },
               { name: "Latte", qty: 150, unit: "ml" },
               { name: "Biscotti", qty: 4, unit: "pz" },
             ],
@@ -548,14 +598,26 @@ const dietPlan = {
         img: "./tortellini-brodo.jpg",
         options: [
           {
-            description: "Tortellini",
-            components: [{ name: "Tortellini in brodo", qty: 170, unit: "g" }],
+            description: "Tortellini o Pasta e Carne",
+            components: [
+              {
+                name: "Tortellini in brodo",
+                qty: 170,
+                unit: "g",
+                category: "Piatto Unico",
+              },
+            ],
           },
           {
             description: "Pasta e Carne",
             components: [
-              { name: "Pasta", qty: 60, unit: "g" },
-              { name: "Carne", qty: 150, unit: "g" },
+              { name: "Pasta corta", qty: 60, unit: "g", category: "Primo" },
+              {
+                name: "Tagliata di manzo",
+                qty: 150,
+                unit: "g",
+                category: "Secondo",
+              },
             ],
           },
         ],
@@ -584,7 +646,7 @@ const dietPlan = {
             description: "Pizza Libera",
             components: [
               {
-                name: "Pizza",
+                name: "Pizza a scelta",
                 qty: 1,
                 unit: "pz",
                 note: "Margherita/Bresaola/4 Stagioni",
@@ -620,9 +682,8 @@ const dietPlan = {
         img: "./colazione.jpeg",
         options: [
           {
-            description: "Caffè, Latte e Biscotti",
+            description: "Standard",
             components: [
-              { name: "Caffè", qty: null, unit: "qb" },
               { name: "Latte", qty: 150, unit: "ml" },
               { name: "Biscotti", qty: 4, unit: "pz" },
             ],
@@ -650,8 +711,15 @@ const dietPlan = {
         img: "./lasagna.webp",
         options: [
           {
-            description: "Pranzo Libero",
-            components: [{ name: "Pasto Libero", qty: null, unit: "libero" }],
+            description: "Pasto Libero",
+            components: [
+              {
+                name: "Pasto Libero",
+                qty: null,
+                unit: "libero",
+                category: "Piatto Unico",
+              },
+            ],
           },
         ],
       },
@@ -676,17 +744,10 @@ const dietPlan = {
         img: "./Piadina.webp",
         options: [
           {
-            description: "Piadina al tonno",
+            description: "Piadina",
             components: [
-              { name: "Piadina", qty: 1, unit: "pz" },
-              { name: "Tonno", qty: 80, unit: "g" },
-            ],
-          },
-          {
-            description: "Affettato magro",
-            components: [
-              { name: "Affettato magro", qty: 100, unit: "g" },
-              { name: "Pane", qty: 50, unit: "g" },
+              { name: "Piadina al tonno", qty: 1, unit: "pz" },
+              { name: "Tonno naturale", qty: 80, unit: "g" },
             ],
           },
         ],
@@ -707,4 +768,5 @@ const dietPlan = {
     ],
   },
 };
+
 export { dietPlan };
