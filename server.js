@@ -4,7 +4,7 @@ const { dietPlan } = require("./dietData.js");
 require("dotenv").config();
 console.log("Chiave API caricata:", process.env.GEMINI_API_KEY ? "SI" : "NO");
 
-const PORT = 3000;
+const PORT = process.env.PORT || 10000;
 // const HOST = "0.0.0.0";
 
 const { GoogleGenerativeAI } = require("@google/generative-ai");
