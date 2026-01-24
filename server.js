@@ -64,18 +64,20 @@ app.post("/api/genera-ricetta-automatica", async (req, res) => {
       Ingredienti forniti: ${ingredienti}.
 
       FORMATO RISPOSTA OBBLIGATORIO:
-  Inizia la risposta SEMPRE con la riga: "TITOLO: [Nome creativo della ricetta]"
-  Poi prosegui con il resto della ricetta in Markdown.
-        ${
-          focusCategoria
-            ? `OBIETTIVO: Genera la ricetta ESCLUSIVAMENTE per il ${focusCategoria.toUpperCase()}. Ignora il resto.`
-            : "OBIETTIVO: Crea un menù completo includendo tutte le portate sopra indicate."
-        }
+      1. La PRIMA riga deve essere: "TITOLO: [Nome creativo della ricetta]"
+      2. Il resto deve essere in Markdown pulito.
+      3. NON usare blocchi di codice <code>.
 
+      OBIETTIVO: 
+      ${
+        focusCategoria
+          ? `Genera la ricetta ESCLUSIVAMENTE per il ${focusCategoria.toUpperCase()}.`
+          : "Crea un menù completo con tutte le portate indicate."
+      }
+      
       NOTA UTENTE: ${notaUtente || "Crea una ricetta bilanciata."}
 
       "Agisci come il mio nutrizionista personale. Da questo momento, ogni volta che ti chiedo una ricetta, devi seguire rigorosamente queste linee guida estratte dal mio piano alimentare:
-      Importante non usare blocchi di testo in <code> quando dai una risposta.
 
       Importante fare attenzione ad avere una o più proteine ma che rispettino il peso della proteina nella dieta.
 
