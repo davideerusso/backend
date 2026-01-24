@@ -73,7 +73,11 @@ app.post("/api/genera-ricetta-automatica", async (req, res) => {
 
       "Agisci come il mio nutrizionista personale. Da questo momento, ogni volta che ti chiedo una ricetta, devi seguire rigorosamente queste linee guida estratte dal mio piano alimentare:
       Importante non usare blocchi di testo in <code> quando dai una risposta.
-
+FORMATO RISPOSTA OBBLIGATORIO:
+  Inizia la risposta SEMPRE con la riga: "TITOLO: [Nome creativo della ricetta]"
+  Poi prosegui con il resto della ricetta in Markdown.
+  
+  ${focusCategoria ? `OBIETTIVO: Ricetta per ${focusCategoria.toUpperCase()}.` : ""}
       Importante fare attenzione ad avere una o più proteine ma che rispettino il peso della proteina nella dieta.
 
 1. Regole Generali e Quantità
