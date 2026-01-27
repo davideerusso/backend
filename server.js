@@ -47,7 +47,13 @@ const getPastoAttuale = () => {
 app.post("/api/genera-ricetta-automatica", async (req, res) => {
   // Riceviamo i dati esatti dal frontend (fondamentale per Primo/Secondo)
   const { notaUtente, pastoNome, ingredienti, focusCategoria } = req.body;
+  let requestAborted = false;
 
+  // Rileva se l'utente chiude la connessione (Annulla)
+  req.on("close", () => {
+    requestAborted = true;
+    console.log("⚠️ Utente ha annullato la richiesta. Operazione interrotta.");
+  });
   // Controllo di sicurezza
   if (!ingredienti) {
     return res
@@ -133,17 +139,21 @@ Acqua liscia povera di sodio, tè, tisane o massimo 3 caffè al giorno senza zuc
 
     const result = await model.generateContent(prompt);
     const text = result.response.text();
-
+    if (requestAborted) {
+      // Se l'utente ha annullato mentre l'IA generava, usciamo silenziosamente.
+      // Non chiamare qui la funzione che scala i coin!
+      return;
+    }
     res.json({
       ricetta: text,
       focus: focusCategoria || "Pasto Completo",
     });
   } catch (error) {
-    console.error("Errore IA Gemini:", error);
-    res.status(500).json({ error: "Errore durante la generazione con Gemini" });
+    if (error.name === "AbortError" || requestAborted) {
+      console.log("Richiesta terminata dopo abort.");
+    } else {
+      console.error("Errore IA Gemini:", error);
+      res.status(500).json({ error: "Errore durante la generazione." });
+    }
   }
-});
-
-app.listen(PORT, () => {
-  console.log(`Server attivo sulla porta ${PORT}`);
 });
