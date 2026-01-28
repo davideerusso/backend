@@ -157,3 +157,7 @@ Acqua liscia povera di sodio, tè, tisane o massimo 3 caffè al giorno senza zuc
     }
   }
 });
+app.listen(PORT, () => {
+  console.log(`✅ Server in esecuzione sulla porta ${PORT}`);
+  console.log(`🚀 Pronto per ricevere richieste dal frontend`);
+});
