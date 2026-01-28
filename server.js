@@ -53,7 +53,8 @@ app.post("/api/genera-ricetta-automatica", async (req, res) => {
 
   // Rileva se l'utente chiude la connessione (Annulla)
   req.on("close", () => {
-    // Se la risposta non è ancora finita, allora è un vero annullamento/timeout
+    // Se res.writableEnded è true, la risposta è stata inviata con successo.
+    // Se è false, la connessione è caduta davvero prima del tempo.
     if (!res.writableEnded) {
       requestAborted = true;
       console.log(
@@ -155,9 +156,15 @@ Acqua liscia povera di sodio, tè, tisane o massimo 3 caffè al giorno senza zuc
     });
     console.log("✅ Ricetta inviata con successo.");
   } catch (error) {
-    console.error("❌ Errore IA:", error.message);
+    // LOGGA TUTTO L'ERRORE PER VEDERLO NELLA CONSOLE DI RENDER
+    console.error("ERRORE REALE RILEVATO:", error);
+
     if (!res.writableEnded) {
-      res.status(500).json({ error: "Errore durante la generazione." });
+      res.status(500).json({
+        error: "Errore interno",
+        message: error.message, // Ti dirà "Model not found" o altro
+        stack: error.stack,
+      });
     }
   }
 });
