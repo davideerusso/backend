@@ -49,10 +49,17 @@ app.post("/api/genera-ricetta-automatica", async (req, res) => {
   const { notaUtente, pastoNome, ingredienti, focusCategoria } = req.body;
   let requestAborted = false;
 
+  console.log("📩 Richiesta ricevuta per:", pastoNome);
+
   // Rileva se l'utente chiude la connessione (Annulla)
   req.on("close", () => {
-    requestAborted = true;
-    console.log("⚠️ Utente ha annullato la richiesta. Operazione interrotta.");
+    // Se la risposta non è ancora finita, allora è un vero annullamento/timeout
+    if (!res.writableEnded) {
+      requestAborted = true;
+      console.log(
+        "⚠️ Connessione interrotta prematuramente dal client o dalla rete.",
+      );
+    }
   });
   // Controllo di sicurezza
   if (!ingredienti) {
@@ -140,19 +147,16 @@ Acqua liscia povera di sodio, tè, tisane o massimo 3 caffè al giorno senza zuc
     const result = await model.generateContent(prompt);
     const text = result.response.text();
     if (requestAborted) {
-      // Se l'utente ha annullato mentre l'IA generava, usciamo silenziosamente.
-      // Non chiamare qui la funzione che scala i coin!
       return;
     }
     res.json({
       ricetta: text,
       focus: focusCategoria || "Pasto Completo",
     });
+    console.log("✅ Ricetta inviata con successo.");
   } catch (error) {
-    if (error.name === "AbortError" || requestAborted) {
-      console.log("Richiesta terminata dopo abort.");
-    } else {
-      console.error("Errore IA Gemini:", error);
+    console.error("❌ Errore IA:", error.message);
+    if (!res.writableEnded) {
       res.status(500).json({ error: "Errore durante la generazione." });
     }
   }
