@@ -21,28 +21,6 @@ app.get("/api/get-diet-plan", (req, res) => {
   console.log("Richiesta ricevuta: invio dieta al frontend...");
   res.json(dietPlan);
 });
-const getPastoAttuale = () => {
-  const ora = new Date().getHours();
-  const giornoSettimana = new Date().getDay(); // 0 è domenica, 1 è lunedì...
-
-  const oggi = dietPlan[giornoSettimana];
-  if (!oggi) return null;
-
-  console.log(
-    "Piani disponibili per oggi:",
-    oggi.meals.map((m) => m.name),
-  );
-
-  const pasto = oggi.meals.find((m) => ora >= m.start && ora < m.end);
-
-  if (!pasto) {
-    console.log("ERRORE: Nessun pasto configurato per l'ora", ora);
-  } else {
-    console.log("Pasto trovato:", pasto.name);
-  }
-
-  return oggi.meals.find((m) => ora >= m.start && ora < m.end);
-};
 
 app.post("/api/genera-ricetta-automatica", async (req, res) => {
   // Riceviamo i dati esatti dal frontend (fondamentale per Primo/Secondo)
@@ -51,17 +29,6 @@ app.post("/api/genera-ricetta-automatica", async (req, res) => {
 
   console.log("📩 Richiesta ricevuta per:", pastoNome);
 
-  // Rileva se l'utente chiude la connessione (Annulla)
-  req.on("close", () => {
-    // Se res.writableEnded è true, la risposta è stata inviata con successo.
-    // Se è false, la connessione è caduta davvero prima del tempo.
-    if (!res.writableEnded) {
-      requestAborted = true;
-      console.log(
-        "⚠️ Connessione interrotta prematuramente dal client o dalla rete.",
-      );
-    }
-  });
   // Controllo di sicurezza
   if (!ingredienti) {
     return res
@@ -145,27 +112,22 @@ Per il pane: deve essere sempre tostato in padella.
 Acqua liscia povera di sodio, tè, tisane o massimo 3 caffè al giorno senza zucchero. Vietati alcolici e bevande gassate."
     `;
 
+    console.log("🤖 Interrogazione Gemini in corso...");
     const result = await model.generateContent(prompt);
     const text = result.response.text();
-    if (requestAborted) {
-      return;
-    }
+
+    console.log("✅ Generazione riuscita. Invio risposta...");
+
     res.json({
       ricetta: text,
       focus: focusCategoria || "Pasto Completo",
     });
-    console.log("✅ Ricetta inviata con successo.");
   } catch (error) {
-    // LOGGA TUTTO L'ERRORE PER VEDERLO NELLA CONSOLE DI RENDER
-    console.error("ERRORE REALE RILEVATO:", error);
-
-    if (!res.writableEnded) {
-      res.status(500).json({
-        error: "Errore interno",
-        message: error.message, // Ti dirà "Model not found" o altro
-        stack: error.stack,
-      });
-    }
+    console.error("❌ ERRORE IA:", error.message);
+    res.status(500).json({
+      error: "Errore durante la generazione.",
+      details: error.message,
+    });
   }
 });
 app.listen(PORT, () => {
