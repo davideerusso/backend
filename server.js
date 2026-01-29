@@ -16,6 +16,12 @@ const app = express();
 app.use(cors()); // 2. Deve essere la PRIMA istruzione dopo 'app'
 app.use(express.json());
 
+// Endpoint Heartbeat per tenere sveglio il server
+app.get("/api/ping", (req, res) => {
+  console.log("💓 Heartbeat ricevuto il:", new Date().toLocaleString());
+  res.status(200).send("pong");
+});
+
 // --- ROTTE ---
 app.get("/api/get-diet-plan", (req, res) => {
   console.log("Richiesta ricevuta: invio dieta al frontend...");
