@@ -51,7 +51,7 @@ app.post("/api/genera-ricetta-automatica", async (req, res) => {
       Ingredienti forniti: ${ingredienti}.
 
       FORMATO RISPOSTA OBBLIGATORIO:
-      1. La PRIMA riga deve essere: "TITOLO: [Nome creativo della ricetta]"
+      1. La PRIMA riga deve essere un titolo di massimo 5 parole: "[Nome creativo della ricetta]"
       2. Il resto deve essere in Markdown pulito.
       3. NON usare blocchi di codice <code>.
 
